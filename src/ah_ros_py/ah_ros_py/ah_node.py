@@ -68,7 +68,7 @@ class AbilityHandNode(Node, Observer):
     def update_fsr(self, fsr):
         self.safe_publish(self.pub_touch_fb, fsr)
 
-    # Subscriber callbacks
+    # Target Subscriber callbacks
     def velocity_callback(self, msg):
         self.client.set_velocity(
             list(msg.data), reply_mode=int(msg.reply_mode)
@@ -97,11 +97,14 @@ class AbilityHandNode(Node, Observer):
 def main(args=None):
     rclpy.init(args=args)
     node = AbilityHandNode()
-    rclpy.spin(node)
-    node.client.close()
-    node.destroy_node()
-    rclpy.shutdown()
-
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.client.close()
+        node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == "__main__":
     main()
