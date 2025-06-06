@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float32MultiArray, UInt16
 from ah_messages.msg import Digits
 
 from ah_wrapper import AHSerialClient
@@ -31,6 +31,9 @@ class AbilityHandNode(Node, Observer):
         self.pub_touch_fb = self.create_publisher(
             Float32MultiArray, "/ability_hand/feedback/touch", 10
         )
+        self.pub_hot_cold_fb = self.create_publisher(
+            UInt16, "/ability_hand/feedback/hot_cold", 10
+        )
 
         # Target subscribers
         self.sub_velocity_target = self.create_subscription(
@@ -46,30 +49,41 @@ class AbilityHandNode(Node, Observer):
             Digits, "/ability_hand/target/duty", self.duty_callback, 10
         )
 
-    def safe_publish(self, pub, data):
-        # Call publish outside of client class
+    def safe_publish(self, pub, msg):
+        # Call publish outside of client class... I think... Not really... But seems better this way... This causes less errors in the log...
         if rclpy.ok():
-            msg = Float32MultiArray()
-            msg.data = data
             try:
                 pub.publish(msg)
             except Exception as e:
-                print(e)
                 self.get_logger().warn(f"Failed to publish: {e}")
         else:
             self.get_logger().warn("ROS context is invalid")
 
     def update_pos(self, position):
-        self.safe_publish(self.pub_position_fb, position)
+        msg = Float32MultiArray()
+        msg.data = position
+        self.safe_publish(self.pub_position_fb, msg)
 
     def update_vel(self, velocity):
-        self.safe_publish(self.pub_velocity_fb, velocity)
+        msg = Float32MultiArray()
+        msg.data = velocity
+        self.safe_publish(self.pub_velocity_fb, msg)
 
     def update_cur(self, current):
-        self.safe_publish(self.pub_current_fb, current)
+        msg = Float32MultiArray()
+        msg.data = current
+        self.safe_publish(self.pub_current_fb, msg)
 
     def update_fsr(self, fsr):
-        self.safe_publish(self.pub_touch_fb, fsr)
+        msg = Float32MultiArray()
+        msg.data = fsr
+        self.safe_publish(self.pub_touch_fb, msg)
+
+    def update_hot_cold(self, hot_cold):
+        if hot_cold:
+            msg = UInt16()
+            msg.data = hot_cold
+            self.safe_publish(self.pub_hot_cold_fb, msg)
 
     # Target Subscriber callbacks
     def velocity_callback(self, msg):
