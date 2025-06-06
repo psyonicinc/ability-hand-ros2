@@ -12,6 +12,8 @@ setup(
             "share/ament_index/resource_index/packages",
             ["resource/" + package_name],
         ),
+        ("share/ah_ros_py/launch", ["launch/ah_node_launch.py"]),
+        ("share/ah_ros_py/launch", ["launch/hand_wave_launch.py"]),
     ],
     install_requires=["setuptools", "ability-hand"],
     entry_points={

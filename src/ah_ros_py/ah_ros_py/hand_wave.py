@@ -19,7 +19,7 @@ class HandWaveNode(Node):
 
         timer_period = 0.002  # seconds
         self.timer = self.create_timer(timer_period, self.publish_position)
-        self.msg = Digits
+        self.msg = Digits()
         self.msg.reply_mode = 0
 
     def publish_position(self):
@@ -40,8 +40,11 @@ def main(args=None):
     except KeyboardInterrupt:
         pass
     finally:
-        node.destroy_node()
-        rclpy.shutdown()
+        try:
+            node.destroy_node()
+            rclpy.shutdown()
+        except:
+            pass
 
 
 if __name__ == "__main__":

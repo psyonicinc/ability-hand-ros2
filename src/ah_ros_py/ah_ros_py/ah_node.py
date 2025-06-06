@@ -10,8 +10,11 @@ from ah_wrapper.observer import Observer
 class AbilityHandNode(Node, Observer):
     def __init__(self):
         super().__init__("ability_hand_node")
+        self.declare_parameter("write_thread", True)
+        self.write_thread = (
+            self.get_parameter("write_thread").get_parameter_value().bool_value
+        )
         # Ability Hand Wrapper Client
-        self.write_thread = False
         self.client = AHSerialClient(write_thread=self.write_thread)
         self.client.hand.add_observer(self)
 
@@ -103,8 +106,12 @@ def main(args=None):
         pass
     finally:
         node.client.close()
-        node.destroy_node()
-        rclpy.shutdown()
+        try:
+            node.destroy_node()
+            rclpy.shutdown()
+        except:
+            pass
+
 
 if __name__ == "__main__":
     main()
