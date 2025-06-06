@@ -2,7 +2,17 @@
 
 ROS2 Humble implementation for integrating ability-hand python wrapper with ROS2
 
-First follow the instructions [here](https://github.com/psyonicinc/ability-hand-api/tree/master/python) to install the Python Ability Hand Wrapper
+
+### Regular Setup
+
+It is recommended to use the included localhost only cyclonedds.xml config file.
+To install cyclone dds and use the included config file run
+
+`./install_cyclone_dds.sh`
+
+Follow the instructions [here](https://github.com/psyonicinc/ability-hand-api/tree/master/python) to install the Python Ability Hand Wrapper
+
+### Topics
 
 You can receive motor feedback on the following topics:
 
@@ -33,6 +43,7 @@ using an *ah_messages/msg/Digits.msg* message, for example:
 
 To start the Ability Hand Node with a automatic write thread use:
 
+`colcon build && source /install/setup.bash`  
 `ros2 launch ah_ros_py ah_node_launch.py write_thread:=True`
 
 In most typical cases you will set write_thread:=False and have another ROS node 
@@ -42,4 +53,3 @@ Ideally you publish at least 200hz for smoother control.
 For example run the hand wave node without a write thread:
 
 `ros2 launch ah_ros_py hand_wave_launch.py`
-

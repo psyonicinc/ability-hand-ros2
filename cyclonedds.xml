@@ -1,0 +1,32 @@
+
+<CycloneDDS xmlns="https://cdds.io/config"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
+  <Domain Id="any">
+    <General>
+      <Interfaces>
+        <NetworkInterface autodetermine="true"/>
+      </Interfaces>
+      <AllowMulticast>false</AllowMulticast>
+      <MulticastRecvNetworkInterfaceAddresses>all</MulticastRecvNetworkInterfaceAddresses>
+      <Transport>udp</Transport>
+      <MaxMessageSize>65500B</MaxMessageSize>
+      <FragmentSize>4000B</FragmentSize>
+    </General>
+    <Discovery>
+      <SPDPInterval>1s</SPDPInterval>
+      <MaxAutoParticipantIndex>120</MaxAutoParticipantIndex>
+      <ParticipantIndex>auto</ParticipantIndex>
+      <!-- list IP addresses of other systems you want to communicate with -->
+      <Peers>
+        <Peer Address="localhost"/>
+      </Peers>
+    </Discovery>
+    <Internal>
+      <Watermarks>
+        <WhcHigh>500kB</WhcHigh>
+      </Watermarks>
+      <SocketReceiveBufferSize min="256kB" max="8MB" />
+      <SocketSendBufferSize min="256kB" max="8MB" />
+    </Internal>
+  </Domain>
+</CycloneDDS>

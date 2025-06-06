@@ -7,7 +7,12 @@ services:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
       - XAUTHORITY=${XAUTHORITY}
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - ROS_DOMAIN_ID=0
+      - ROS_LOCALHOST_ONLY=0
+      - CYCLONEDDS_URI=file:///etc/cyclonedds/cyclonedds.xml
     volumes:
+      - ./cyclonedds.xml:/etc/cyclonedds/cyclonedds.xml
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${XAUTHORITY}:${XAUTHORITY}
     privileged: true
