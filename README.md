@@ -35,11 +35,11 @@ To start the Ability Hand Node with a automatic write thread use:
 
 `ros2 launch ah_ros_py ah_node_launch.py write_thread:=True`
 
-In most typical cases you will have another ROS node which will be publishing to
-the hand at least every 0.3 seconds / 5 hz.  Ideally you publish at least 200hz
-for smoother control.
+In most typical cases you will set write_thread:=False and have another ROS node 
+which will be publishing to the hand at least every 0.3 seconds / 5 hz.  
+Ideally you publish at least 200hz for smoother control.
 
-or run a hand wave example without a write thread:
+For example run the hand wave node without a write thread:
 
 `ros2 launch ah_ros_py hand_wave_launch.py`
 
