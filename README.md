@@ -8,7 +8,7 @@ ROS2 Humble implementation for integrating ability-hand python wrapper with ROS2
 It is recommended to use the included localhost only cyclonedds.xml config file.
 To install cyclone dds and use the included config file run
 
-`./install_cyclone_dds.sh`
+`./cyclone_dds_install.sh`
 
 Follow the instructions [here](https://github.com/psyonicinc/ability-hand-api/tree/master/python) to install the Python Ability Hand Wrapper
 

@@ -15,7 +15,7 @@ CYCLONE_PATH="file://$SCRIPT_DIR/cyclonedds.xml"
 BASHRC="$HOME/.bashrc"
 {
     echo ""
-    echo "# Added by install_cyclone_dds.sh"
+    echo "# Added by ability-hand-ros2/cyclone_dds_install.sh"
     echo "export ROS_DOMAIN_ID=0"
     echo "export ROS_LOCALHOST_ONLY=0"
     echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp"
