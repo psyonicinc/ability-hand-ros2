@@ -1,0 +1,22 @@
+version: '3'
+services:
+  ros2_ah:
+    container_name: ros2_ah
+    working_dir: /
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      network: host
+    network_mode: host
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - ROS_DOMAIN_ID=0
+      - ROS_LOCALHOST_ONLY=0
+      - CYCLONEDDS_URI=file:///etc/cyclonedds/cyclonedds.xml
+    volumes:
+      - ./cyclonedds.xml:/etc/cyclonedds/cyclonedds.xml
+      - /dev:/dev
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /var/run/docker.sock:/var/run/docker.sock
