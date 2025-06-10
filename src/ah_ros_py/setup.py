@@ -1,4 +1,5 @@
 from setuptools import setup
+import os
 
 package_name = "ah_ros_py"
 
@@ -7,13 +8,19 @@ setup(
     version="0.0.1",
     packages=[package_name],
     data_files=[
-        ("share/" + package_name, ["package.xml"]),
         (
-            "share/ament_index/resource_index/packages",
-            ["resource/" + package_name],
+            os.path.join("share", "ament_index", "resource_index", "packages"),
+            [os.path.join("resource", package_name)],
         ),
-        ("share/ah_ros_py/launch", ["launch/ah_node_launch.py"]),
-        ("share/ah_ros_py/launch", ["launch/hand_wave_launch.py"]),
+        (os.path.join("share", package_name), ["package.xml"]),
+        (
+            os.path.join("share", package_name, "launch"),
+            [os.path.join("launch", "ah_node.launch.py")],
+        ),
+        (
+            os.path.join("share", package_name, "launch"),
+            [os.path.join("launch", "hand_wave.launch.py")],
+        ),
     ],
     install_requires=["setuptools", "ability-hand"],
     entry_points={
