@@ -44,7 +44,7 @@ RUN echo "-- installing grpc" && \
     make -j$(nproc) && make install && make clean && ldconfig
 
 # Install pip requirements
-RUN python3 -m pip install ability-hand
+RUN python3 -m pip install ability-hand numpy==1.24 scipy==1.15
 
 # Create workspace
 WORKDIR /src

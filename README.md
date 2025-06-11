@@ -6,14 +6,17 @@ with ROS2
 
 ### Regular Setup
 
-#### Install ROS2 Humble
+#### Install ROS2 Humble (Ubuntu 22.04)
 
-https://docs.ros.org/en/humble/Installation.html
+If using Ubuntu 22.04 you can follow the [install instructions](https://docs.ros.org/en/humble/Installation.html)
+.  If using Ubuntu 23.04 or higher or Windows, Docker is suggested.
 
 It is recommended to use the included localhost only cyclonedds.xml config file.
 To install cyclone dds and use the included config file run
 
 `./cyclone_dds_install.sh`
+
+#### Install Ability Hand Python Wrapper
 
 Follow the instructions [here](https://github.com/psyonicinc/ability-hand-api/tree/master/python) 
 to install the Python Ability Hand Wrapper
