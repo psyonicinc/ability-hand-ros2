@@ -16,7 +16,7 @@ services:
       - ROS_LOCALHOST_ONLY=0
       - CYCLONEDDS_URI=file:///etc/cyclonedds/cyclonedds.xml
     volumes:
-      - ./cyclonedds.xml:/etc/cyclonedds/cyclonedds.xml
+      - ../cyclonedds.xml:/etc/cyclonedds/cyclonedds.xml
       - /dev:/dev
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /var/run/docker.sock:/var/run/docker.sock
