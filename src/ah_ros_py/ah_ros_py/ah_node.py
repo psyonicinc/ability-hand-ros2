@@ -18,6 +18,7 @@ class AbilityHandNode(Node, Observer):
         self.declare_parameter("baud_rate", 0)
         self.declare_parameter("hand_size", "large")
         self.declare_parameter("js_publisher", False)
+        self.declare_parameter("simulated_hand", False)
 
         # Read Parameters
         self.js_publisher = (
@@ -35,21 +36,35 @@ class AbilityHandNode(Node, Observer):
         baud = (
             self.get_parameter("baud_rate").get_parameter_value().integer_value
         )
+        simulated = (
+            self.get_parameter("simulated_hand")
+            .get_parameter_value()
+            .bool_value
+        )
 
         if port and baud:
             self.client = AHSerialClient(
-                write_thread=self.write_thread, port=port, baud_rate=baud
+                write_thread=self.write_thread,
+                port=port,
+                baud_rate=baud,
+                simulated=simulated,
             )
         elif port:
             self.client = AHSerialClient(
-                write_thread=self.write_thread, port=port
+                write_thread=self.write_thread,
+                port=port,
+                simulated=simulated,
             )
         elif baud:
             self.client = AHSerialClient(
-                write_thread=self.write_thread, baud_rate=baud
+                write_thread=self.write_thread,
+                baud_rate=baud,
+                simulated=simulated,
             )
         else:
-            self.client = AHSerialClient(write_thread=self.write_thread)
+            self.client = AHSerialClient(
+                write_thread=self.write_thread, simulated=simulated
+            )
 
         self.client.hand.add_observer(self)
 

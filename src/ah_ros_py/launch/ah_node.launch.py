@@ -37,6 +37,12 @@ def generate_launch_description():
                 description="Publish Joint States for Joint State Publisher",
                 choices=["True", "False"],
             ),
+            DeclareLaunchArgument(
+                "simulated_hand",
+                default_value="False",
+                description="Simulated Ability Hand",
+                choices=["True", "False"],
+            ),
             Node(
                 package="ah_ros_py",
                 executable="ah_node",
@@ -47,6 +53,7 @@ def generate_launch_description():
                     {"port": LaunchConfiguration("port")},
                     {"baud_rate": LaunchConfiguration("baud_rate")},
                     {"js_publisher": LaunchConfiguration("js_publisher")},
+                    {"simulated_hand": LaunchConfiguration("simulated_hand")},
                 ],
             ),
         ]
