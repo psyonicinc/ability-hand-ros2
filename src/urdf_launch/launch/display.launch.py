@@ -111,10 +111,8 @@ def generate_launch_description():
                 "0.0",
                 "0.0",
                 "0.0",  # roll pitch yaw (in radians)
-                LaunchConfiguration(
-                    "hand_base_link"
-                ),
-                "base_link", # parent frame, child frame
+                LaunchConfiguration("hand_base_link"),
+                "base_link",  # parent frame, child frame
             ],
         )
     )

@@ -15,17 +15,17 @@ setup(
         (os.path.join("share", package_name), ["package.xml"]),
         (
             os.path.join("share", package_name, "launch"),
-            [os.path.join("launch", "ah_node.launch.py"),
-             os.path.join("launch", "hand_wave.launch.py"),
-             os.path.join("launch", "manus_glove.launch.py"),],
+            [
+                os.path.join("launch", "ah_node.launch.py"),
+                os.path.join("launch", "hand_wave.launch.py"),
+            ],
         ),
     ],
-    install_requires=["setuptools", "ability-hand", "numpy==1.24", "scipy==1.15"],
+    install_requires=["setuptools", "ability-hand"],
     entry_points={
         "console_scripts": [
             "ah_node = ah_ros_py.ah_node:main",
             "hand_wave = ah_ros_py.hand_wave:main",
-            "manus_glove = ah_ros_py.manus_glove:main"
         ],
     },
     zip_safe=True,
