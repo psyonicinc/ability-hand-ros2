@@ -1,4 +1,5 @@
 from math import radians
+import threading
 
 import rclpy
 from rclpy.node import Node
@@ -8,6 +9,8 @@ from ah_messages.msg import Digits
 
 from ah_wrapper import AHSerialClient
 from ah_wrapper.observer import Observer
+from ah_ros_py.plots import RealTimePlotTouch
+from ament_index_python.packages import get_package_share_directory
 
 
 class AbilityHandNode(Node, Observer):
@@ -18,6 +21,7 @@ class AbilityHandNode(Node, Observer):
         self.declare_parameter("baud_rate", 0)
         self.declare_parameter("hand_size", "large")
         self.declare_parameter("js_publisher", False)
+        self.declare_parameter("simulated_hand", False)
 
         # Read Parameters
         self.js_publisher = (
@@ -35,21 +39,35 @@ class AbilityHandNode(Node, Observer):
         baud = (
             self.get_parameter("baud_rate").get_parameter_value().integer_value
         )
+        simulated = (
+            self.get_parameter("simulated_hand")
+            .get_parameter_value()
+            .bool_value
+        )
 
         if port and baud:
             self.client = AHSerialClient(
-                write_thread=self.write_thread, port=port, baud_rate=baud
+                write_thread=self.write_thread,
+                port=port,
+                baud_rate=baud,
+                simulated=simulated,
             )
         elif port:
             self.client = AHSerialClient(
-                write_thread=self.write_thread, port=port
+                write_thread=self.write_thread,
+                port=port,
+                simulated=simulated,
             )
         elif baud:
             self.client = AHSerialClient(
-                write_thread=self.write_thread, baud_rate=baud
+                write_thread=self.write_thread,
+                baud_rate=baud,
+                simulated=simulated,
             )
         else:
-            self.client = AHSerialClient(write_thread=self.write_thread)
+            self.client = AHSerialClient(
+                write_thread=self.write_thread, simulated=simulated
+            )
 
         self.client.hand.add_observer(self)
 
@@ -182,11 +200,23 @@ class AbilityHandNode(Node, Observer):
             self.client.send_command()
 
 
+def ros_node_spin(node):
+    rclpy.spin(node)
+
+
 def main(args=None):
     rclpy.init(args=args)
     node = AbilityHandNode()
+    plotter = RealTimePlotTouch(
+        hand=node.client.hand, dir=get_package_share_directory("ah_ros_py")
+    )
+    ros_thread = threading.Thread(target=ros_node_spin, args=(node,))
+    ros_thread.start()
     try:
-        rclpy.spin(node)
+        import os
+
+        print(os.getcwd())
+        plotter.start()
     except KeyboardInterrupt:
         pass
     finally:

@@ -9,23 +9,57 @@ setup(
     packages=[package_name],
     data_files=[
         (
+            os.path.join("share", package_name, "data"),
+            [
+                os.path.join(package_name, "data", "all_fingers_right.pkl"),
+                os.path.join(package_name, "data", "all_fingers_left.pkl"),
+                os.path.join(package_name, "data", "thumb_left.pkl"),
+                os.path.join(package_name, "data", "thumb_right.pkl"),
+            ],
+        ),
+        (
+            os.path.join("share", package_name),
+            [
+                os.path.join(package_name, "plots.py"),
+            ],
+        ),
+        (
+            os.path.join("share", "images", package_name),
+            [
+                os.path.join(
+                    package_name, "images", "touch_sensor_legend_sml.png"
+                ),
+            ],
+        ),
+        (
             os.path.join("share", "ament_index", "resource_index", "packages"),
             [os.path.join("resource", package_name)],
         ),
         (os.path.join("share", package_name), ["package.xml"]),
         (
             os.path.join("share", package_name, "launch"),
-            [os.path.join("launch", "ah_node.launch.py"),
-             os.path.join("launch", "hand_wave.launch.py"),
-             os.path.join("launch", "manus_glove.launch.py"),],
+            [
+                os.path.join("launch", "ah_node.launch.py"),
+                os.path.join("launch", "hand_wave.launch.py"),
+                os.path.join("launch", "manus_glove.launch.py"),
+                os.path.join("launch", "map_fingerpoints.launch.py"),
+                os.path.join("launch", "map_thumb.launch.py"),
+            ],
         ),
     ],
-    install_requires=["setuptools", "ability-hand", "numpy==1.24", "scipy==1.15"],
+    install_requires=[
+        "setuptools",
+        "ability-hand",
+        "numpy==1.24",
+        "scipy>=1.15",
+    ],
     entry_points={
         "console_scripts": [
             "ah_node = ah_ros_py.ah_node:main",
-            "hand_wave = ah_ros_py.hand_wave:main",
-            "manus_glove = ah_ros_py.manus_glove:main"
+            "hand_wave_node = ah_ros_py.hand_wave_node:main",
+            "manus_glove_node = ah_ros_py.manus_glove_node:main",
+            "map_fingerpoints_node = ah_ros_py.map_fingerpoints_node:main",
+            "build_thumb_maps = ah_ros_py.build_thumb_maps:main",
         ],
     },
     zip_safe=True,

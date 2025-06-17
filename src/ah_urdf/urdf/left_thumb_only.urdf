@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	NOTES:
+	Units:
+		Distance: m
+		Angles: rad (only option)
+		Mass: kg
+		Inertia: kg*m^2
+		
+	Notes on intertia:
+		-The inertias are calculated for uniform density using meshes with weights.
+	
+	Notes on finger q2:
+		-The hand is a 4 bar linkage mechanism forming an 'X'. 4 bar linkages are not supported in the 
+		urdf format. The motion of the second finger joint is fully defined by the motion of the first 
+		finger joint. The calculation to find the index finger second joint angle given the first is provided
+		in a matlab script elsewhere in this repository.
+-->
+<robot name="ability_hand">
+   <link name="base_link">
+      <visual name="wrist_mesh">
+         <origin rpy="0 0 0" xyz="0 0 0" />
+         <geometry>
+            <mesh filename="models/wristmesh.STL" />
+         </geometry>
+      </visual>
+      <inertial>
+         <mass value="0.37511000" />
+         <inertia ixx="3.76723021e-04" ixy="2.33895423e-06" ixz="-6.04325150e-06" iyy="4.67706269e-04" iyz="5.04572725e-05" izz="1.77650714e-04" />
+         <origin xyz="-6.54520000e-04 -5.98838000e-03 5.07726500e-02" rpy="0 0 0" />
+      </inertial>
+      <visual name="palm_mesh">
+         <origin rpy="3.14148426 0.08848813 3.14036612" xyz="24.0476665e-3 3.78124745e-3 32.32964923e-3" />
+         <geometry>
+            <mesh filename="models/FB_palm_ref.STL" />
+         </geometry>
+      </visual>
+      <collision name="palm_mesh_coll">
+         <origin rpy="3.14148426 0.08848813 3.14036612" xyz="24.0476665e-3 3.78124745e-3 32.32964923e-3" />
+         <geometry>
+            <mesh filename="models/palm_hull.STL" />
+         </geometry>
+      </collision>
+   </link>
+   <link name="thumb_L1">
+      <inertial>
+         <mass value="0.00200000" />
+         <inertia ixx="1.18180125e-07" ixy="2.01333778e-08" ixz="6.82164634e-08" iyy="2.49626759e-07" iyz="-8.51306376e-09" izz="2.02510886e-07" />
+         <origin xyz="1.43350200e-02 -1.88501000e-03 -5.04062000e-03" rpy="0 0 0" />
+      </inertial>
+      <visual name="thumb_mesh_1">
+         <origin rpy="0 0 0" xyz="0 0 0" />
+         <geometry>
+            <mesh filename="models/thumb-F1.STL" />
+         </geometry>
+      </visual>
+      <collision name="thumb_coll_mesh_1">
+         <origin rpy="-1.83260 0 0" xyz="0.02783 0 -0.01475" />
+         <geometry>
+            <mesh filename="models/thumb-F1-hull.STL" />
+         </geometry>
+      </collision>
+   </link>
+   <link name="thumb_L2">
+      <inertial>
+         <mass value="0.06000000" />
+         <inertia ixx="8.10858595e-06" ixy="-7.50865361e-06" ixz="-6.23775212e-08" iyy="2.16060962e-05" iyz="-1.00035818e-07" izz="2.58546356e-05" />
+         <origin xyz="2.77624500e-02 5.62171000e-03 -4.10855000e-03" rpy="0 0 0" />
+      </inertial>
+      <visual name="thumb_mesh_2">
+         <origin rpy="0 0 0" xyz="0 0 0" />
+         <geometry>
+            <mesh filename="models/thumb-F2-left.STL" />
+         </geometry>
+      </visual>
+      <collision name="thumb_hull_mesh_2">
+         <origin rpy="3.14159 0 0.34383" xyz="0.06519 0.02334 -0.00393" />
+         <geometry>
+            <mesh filename="models/thumb-F2-hull.STL" />
+         </geometry>
+      </collision>
+   </link>
+   <joint name="thumb_q1" type="revolute">
+      <parent link="base_link" />
+      <child link="thumb_L1" />
+      <origin xyz="24.0476665e-3 3.78124745e-3 32.32964923e-3" rpy="-3.1250458 -0.08693131 -0.1883423" />
+      <axis xyz="0 0 1" />
+      <limit lower="-1.74" upper="0" effort="1.2" velocity="40.338888721" />
+      <!-- angles in rad, efforts in N-m, velocity in rad/s -->
+      <dynamics damping="0.001" friction="0.001" />
+      <!-- Friction coefficient is not from quantitative measurement -->
+   </joint>
+   <joint name="thumb_q2" type="revolute">
+      <parent link="thumb_L1" />
+      <child link="thumb_L2" />
+      <origin xyz="27.8283501e-3 0 -14.7507000e-3" rpy="4.450589592585541 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="0" upper="1.74" effort="6.0" velocity="8.0677777442" />
+      <!-- angles in rad, efforts in N-m, velocity in rad/s -->
+      <dynamics damping="0.001" friction="0.001" />
+      <!-- Friction coefficient is not from quantitative measurement -->
+   </joint>
+   <link name="thumb_anchor" />
+   <joint name="thmb_anchor" type="fixed">
+      <parent link="thumb_L2" />
+      <child link="thumb_anchor" />
+      <origin rpy="0 0 0" xyz="52.0012259e-3  28.0086971e-3 -.884835778e-3" />
+   </joint>
+</robot>

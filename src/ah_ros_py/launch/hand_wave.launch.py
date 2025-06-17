@@ -36,7 +36,6 @@ def generate_launch_description():
                 description="Publish Joint States for Joint State Publisher",
                 choices=["True", "False"],
             ),
-
             Node(
                 package="ah_ros_py",
                 executable="ah_node",
@@ -51,7 +50,7 @@ def generate_launch_description():
             ),
             Node(
                 package="ah_ros_py",
-                executable="hand_wave",
+                executable="hand_wave_node",
                 name="hand_wave",
                 output="screen",
             ),

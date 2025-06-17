@@ -9,12 +9,17 @@ source /src/install/setup.bash
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 # Basic node
+############
 # ros2 launch ah_ros_py ah_node_launch.py write_thread:=False
 
 # Hand wave with URDF / RViz
-ros2 launch urdf_launch display.launch.py &
-ros2 launch ah_ros_py hand_wave.launch.py js_publisher:=True
+############################
+# ros2 launch urdf_launch display.launch.py &
+# ros2 launch ah_ros_py hand_wave.launch.py js_publisher:=True
 
+# Manus glove node
+##################
+ ros2 launch ah_ros_py manus_glove.launch.py
 
 
 exec "$@"
