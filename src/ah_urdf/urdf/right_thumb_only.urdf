@@ -85,7 +85,7 @@
       <child link="thumb_L1" />
       <origin xyz="-24.0476665e-3 3.78124745e-3 32.32964923e-3" rpy="-0.01675973 -0.08689062 -2.95079797" />
       <axis xyz="0 0 1" />
-      <limit lower="-1.74" upper="0" effort="1.2" velocity="40.338888721" />
+      <limit lower="-1.7453292519943295" upper="0" effort="1.2" velocity="40.338888721" />
       <!-- angles in rad, efforts in N-m, velocity in rad/s -->
       <dynamics damping="0.001" friction="0.001" />
       <!-- Friction coefficient is not from quantitative measurement -->
@@ -95,7 +95,7 @@
       <child link="thumb_L2" />
       <origin xyz=" 27.8283501e-3 1.7436510745838653e-19 14.7507e-3 " rpy=" 1.832595714594045 -0.0 5.366520605522463e-18 " />
       <axis xyz="0 0 1" />
-      <limit lower="0" upper="1.74" effort="6.0" velocity="8.0677777442" />
+      <limit lower="0" upper="1.7453292519943295" effort="6.0" velocity="8.0677777442" />
       <!-- angles in rad, efforts in N-m, velocity in rad/s -->
       <dynamics damping="0.001" friction="0.001" />
       <!-- Friction coefficient is not from quantitative measurement -->

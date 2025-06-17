@@ -24,7 +24,7 @@ setup(
             ],
         ),
         (
-            os.path.join("share", "images", package_name),
+            os.path.join("share", package_name, "images"),
             [
                 os.path.join(
                     package_name, "images", "touch_sensor_legend_sml.png"
@@ -43,7 +43,6 @@ setup(
                 os.path.join("launch", "hand_wave.launch.py"),
                 os.path.join("launch", "manus_glove.launch.py"),
                 os.path.join("launch", "map_fingerpoints.launch.py"),
-                os.path.join("launch", "map_thumb.launch.py"),
             ],
         ),
     ],
