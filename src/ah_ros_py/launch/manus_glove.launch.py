@@ -76,7 +76,11 @@ def generate_launch_description():
                     {"baud_rate": LaunchConfiguration("baud_rate")},
                     {"js_publisher": LaunchConfiguration("js_publisher")},
                     {"simulated_hand": LaunchConfiguration("simulated_hand")},
-                    {"right_base_frame": LaunchConfiguration("right_base_frame")}
+                    {
+                        "right_base_frame": LaunchConfiguration(
+                            "right_base_frame"
+                        )
+                    },
                 ],
             ),
             Node(

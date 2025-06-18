@@ -212,10 +212,9 @@ def main(args=None):
     )
     ros_thread = threading.Thread(target=ros_node_spin, args=(node,))
     ros_thread.start()
+    ros_thread.join()
     try:
-        import os
-
-        print(os.getcwd())
+        pass
         plotter.start()
     except KeyboardInterrupt:
         pass

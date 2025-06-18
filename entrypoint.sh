@@ -19,7 +19,7 @@ export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 # Manus glove node
 ##################
- ros2 launch ah_ros_py manus_glove.launch.py
+ ros2 launch ah_ros_py manus_glove.launch.py simulated_hand:=True
 
 
 exec "$@"

@@ -161,7 +161,10 @@ class PoseToTFBroadcaster(Node):
                         position=[
                             nail_offset_world.transform.translation.x,
                             nail_offset_world.transform.translation.y,
-                            nail_offset_world.transform.translation.z,
+                            max(
+                                nail_offset_world.transform.translation.z,
+                                0.0915,
+                            ),  # Prevents weird configurations
                         ]
                     )
                     t_j1 = min(100.0, t_j1)

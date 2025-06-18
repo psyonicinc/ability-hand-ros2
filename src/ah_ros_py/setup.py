@@ -50,7 +50,8 @@ setup(
         "setuptools",
         "ability-hand",
         "numpy==1.24",
-        "scipy>=1.15",
+        "scipy==1.8",
+        "ikpy>=3.4.2",
     ],
     entry_points={
         "console_scripts": [
