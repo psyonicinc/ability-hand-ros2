@@ -26,6 +26,7 @@ def generate_launch_description():
     default_rviz_config_path = PathJoinSubstitution(
         [urdf_launch_package, "config", "urdf.rviz"]
     )
+
     ld.add_action(
         DeclareLaunchArgument(
             name="rviz_config",
@@ -41,25 +42,24 @@ def generate_launch_description():
             description="Package containing URDF",
         )
     )
-
+    
     ld.add_action(
-        DeclareLaunchArgument(
-            name="urdf_package_path",
-            default_value=os.path.join(
-                "urdf", "ability_hand_right_large.urdf"
-            ),
-            description="Path to URDF file",
+        Node(
+            package="joint_state_publisher_gui",
+            executable="joint_state_publisher_gui",
+            condition=IfCondition(LaunchConfiguration("jsp_gui")),
         )
     )
 
     ld.add_action(
         DeclareLaunchArgument(
-            name="hand_base_link",
-            default_value="world",
-            description="Frame to attach hand to",
+            name="hand_side",
+            default_value="right",
+            choices=["left", "right"],
+            description="Left or right hand",
         )
     )
-
+    
     # need to manually pass configuration in because of https://github.com/ros2/launch/issues/313
     ld.add_action(
         IncludeLaunchDescription(
@@ -73,6 +73,30 @@ def generate_launch_description():
         )
     )
 
+    # Right Hand Launches
+    ld.add_action(
+        DeclareLaunchArgument(
+            name="urdf_package_path",
+            default_value=os.path.join(
+                "urdf", "ability_hand_right_large.urdf"
+            ),
+            description="Path to URDF file",
+            condition=IfCondition(
+                PythonExpression(["'", LaunchConfiguration('hand_side'), "' == 'right'"])
+            )
+        )
+    )
+
+    ld.add_action(
+        DeclareLaunchArgument(
+            name="hand_base_link_r",
+            default_value="world",
+            description="Frame to attach hand URDF to",
+        )
+    )
+
+
+
     # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
     ld.add_action(
         Node(
@@ -83,7 +107,7 @@ def generate_launch_description():
                     "publish_default_positions": False,
                     "rate": 100,
                     "source_list": [
-                        "joint_states_ah",
+                        "joint_states_ah_r",
                     ],
                 }
             ],
@@ -91,14 +115,8 @@ def generate_launch_description():
         )
     )
 
-    ld.add_action(
-        Node(
-            package="joint_state_publisher_gui",
-            executable="joint_state_publisher_gui",
-            condition=IfCondition(LaunchConfiguration("jsp_gui")),
-        )
-    )
 
+    # Define frame to attach hand URDF to
     ld.add_action(
         Node(
             package="tf2_ros",
@@ -112,7 +130,44 @@ def generate_launch_description():
                 "0.0",
                 "0.0",  # roll pitch yaw (in radians)
                 LaunchConfiguration("hand_base_link"),
-                "base_link",  # parent frame, child frame
+                "base_link_r",  # parent frame, child frame
+            ],
+        )
+    )
+
+    # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
+    ld.add_action(
+        Node(
+            package="joint_state_publisher",
+            executable="joint_state_publisher",
+            parameters=[
+                {
+                    "publish_default_positions": False,
+                    "rate": 100,
+                    "source_list": [
+                        "joint_states_ah_l",
+                    ],
+                }
+            ],
+            condition=UnlessCondition(LaunchConfiguration("jsp_gui")),
+        )
+    )
+
+    # Define frame to attach hand URDF to
+    ld.add_action(
+        Node(
+            package="tf2_ros",
+            executable="static_transform_publisher",
+            name="static_hand_tf_pub",
+            arguments=[
+                "0.0",
+                "0.0",
+                "0.0",  # x y z translation
+                "0.0",
+                "0.0",
+                "0.0",  # roll pitch yaw (in radians)
+                LaunchConfiguration("hand_base_link"),
+                "base_link_l",  # parent frame, child frame
             ],
         )
     )

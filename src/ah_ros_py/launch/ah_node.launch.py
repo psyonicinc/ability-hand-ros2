@@ -26,21 +26,33 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "hand_size",
-                default_value="Large",
+                default_value="large",
                 description="Ability Hand Size (Small/Large)",
-                choices=["Small", "Large"],
+                choices=["small", "large"],
+            ),
+            DeclareLaunchArgument(
+                "hand_side",
+                default_value="right",
+                description="Left or Right Hand",
+                choices=["right", "left"],
             ),
             DeclareLaunchArgument(
                 "js_publisher",
-                default_value="False",
+                default_value="false",
                 description="Publish Joint States for Joint State Publisher",
-                choices=["True", "False"],
+                choices=["true", "false"],
             ),
             DeclareLaunchArgument(
                 "simulated_hand",
-                default_value="False",
+                default_value="false",
                 description="Simulated Ability Hand",
-                choices=["True", "False"],
+                choices=["true", "false"],
+            ),
+            DeclareLaunchArgument(
+                "plot_fsr",
+                default_value="false",
+                description="Plot touch sensors",
+                choices=["true", "false"],
             ),
             Node(
                 package="ah_ros_py",
@@ -53,6 +65,8 @@ def generate_launch_description():
                     {"baud_rate": LaunchConfiguration("baud_rate")},
                     {"js_publisher": LaunchConfiguration("js_publisher")},
                     {"simulated_hand": LaunchConfiguration("simulated_hand")},
+                    {"hand_side": LaunchConfiguration("hand_side")},
+                    {"plot_fsr": LaunchConfiguration("plot_fsr")},
                 ],
             ),
         ]

@@ -20,8 +20,11 @@ class AbilityHandNode(Node, Observer):
         self.declare_parameter("port", "")
         self.declare_parameter("baud_rate", 0)
         self.declare_parameter("hand_size", "large")
+        self.declare_parameter("hand_size", "right")
         self.declare_parameter("js_publisher", False)
         self.declare_parameter("simulated_hand", False)
+        self.declare_parameter("hand_side", "right")
+        self.declare_parameter("plot_fsr", False)
 
         # Read Parameters
         self.js_publisher = (
@@ -35,6 +38,13 @@ class AbilityHandNode(Node, Observer):
             .get_parameter_value()
             .string_value.lower()
         )
+        self.hand_size = (
+            self.get_parameter("hand_side")
+            .get_parameter_value()
+            .string_value.lower()
+        )
+        self.plot_fsr = self.get_parameter("plot_fsr").get_parameter_value().bool_value
+
         port = self.get_parameter("port").get_parameter_value().string_value
         baud = (
             self.get_parameter("baud_rate").get_parameter_value().integer_value
@@ -44,6 +54,7 @@ class AbilityHandNode(Node, Observer):
             .get_parameter_value()
             .bool_value
         )
+
 
         if port and baud:
             self.client = AHSerialClient(
