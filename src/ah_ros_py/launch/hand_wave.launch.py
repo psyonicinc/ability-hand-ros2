@@ -25,6 +25,12 @@ def generate_launch_description():
                 description="Baud Rate",
             ),
             DeclareLaunchArgument(
+                "hand_side",
+                default_value="Right",
+                description="Ability Hand Side",
+                choices=["Right", "Left"],
+            ),
+            DeclareLaunchArgument(
                 "hand_size",
                 default_value="Large",
                 description="Ability Hand Size (Small/Large)",
@@ -48,7 +54,8 @@ def generate_launch_description():
                 name="ah_node",
                 output="screen",
                 parameters=[
-                    {"write_thread": LaunchConfiguration("write_thread")},
+                    {"write_thread": True},
+                    {"hand_side": LaunchConfiguration("hand_side")},
                     {"port": LaunchConfiguration("port")},
                     {"baud_rate": LaunchConfiguration("baud_rate")},
                     {"js_publisher": LaunchConfiguration("js_publisher")},
@@ -60,6 +67,9 @@ def generate_launch_description():
                 executable="hand_wave",
                 name="hand_wave",
                 output="screen",
+                parameters=[
+                    {"hand_side": LaunchConfiguration("hand_side")},
+                ],
             ),
         ]
     )
