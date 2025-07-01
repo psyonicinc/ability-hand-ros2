@@ -9,12 +9,6 @@ def generate_launch_description():
         [
             # AH NODE SETUP
             DeclareLaunchArgument(
-                "write_thread",
-                default_value="False",
-                description="Enable write thread",
-                choices=["True", "False"],
-            ),
-            DeclareLaunchArgument(
                 "port",
                 default_value="",
                 description="Serial Port",
@@ -23,6 +17,12 @@ def generate_launch_description():
                 "baud_rate",
                 default_value="0",
                 description="Baud Rate",
+            ),
+            DeclareLaunchArgument(
+                "hand_side",
+                default_value="Right",
+                description="Ability Hand Side",
+                choices=["Right", "Left"],
             ),
             DeclareLaunchArgument(
                 "hand_size",
@@ -48,7 +48,8 @@ def generate_launch_description():
                 name="ah_node",
                 output="screen",
                 parameters=[
-                    {"write_thread": LaunchConfiguration("write_thread")},
+                    {"write_thread": False},
+                    {"hand_side": LaunchConfiguration("hand_side")},
                     {"port": LaunchConfiguration("port")},
                     {"baud_rate": LaunchConfiguration("baud_rate")},
                     {"js_publisher": LaunchConfiguration("js_publisher")},
@@ -60,6 +61,9 @@ def generate_launch_description():
                 executable="hand_wave",
                 name="hand_wave",
                 output="screen",
+                parameters=[
+                    {"hand_side": LaunchConfiguration("hand_side")},
+                ],
             ),
         ]
     )

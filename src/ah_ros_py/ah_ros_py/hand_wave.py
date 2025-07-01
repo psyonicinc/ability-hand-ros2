@@ -10,11 +10,23 @@ from ah_messages.msg import Digits
 class HandWaveNode(Node):
     def __init__(self):
         super().__init__("ability_hand_node")
+        self.declare_parameter("hand_side", "Right")
+        hand_side = (
+            self.get_parameter("hand_side")
+            .get_parameter_value()
+            .string_value.lower()
+        )
 
         # Target position publisher
-        self.pub_position = self.create_publisher(
-            Digits, "/ability_hand/target/position", 10
-        )
+        if hand_side.lower() == "right":
+            self.pub_position = self.create_publisher(
+                Digits, "/ability_hand/right/target/position", 10
+            )
+        elif hand_side.lower() == "left":
+            self.pub_position = self.create_publisher(
+                Digits, "/ability_hand/left/target/position", 10
+            )
+
         self.position_data = [30, 30, 30, 30, 30, -30]
 
         timer_period = 0.002  # seconds

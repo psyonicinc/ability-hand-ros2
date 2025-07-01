@@ -26,10 +26,10 @@ def generate_launch_description():
                 description="Baud Rate",
             ),
             DeclareLaunchArgument(
-                "hand_size",
-                default_value="Large",
-                description="Ability Hand Size (Small/Large)",
-                choices=["Small", "Large"],
+                "hand_side",
+                default_value="Right",
+                description="Ability Hand Side",
+                choices=["Right", "Left"],
             ),
             DeclareLaunchArgument(
                 "js_publisher",

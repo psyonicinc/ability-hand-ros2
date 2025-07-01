@@ -16,7 +16,7 @@ class AbilityHandNode(Node, Observer):
         self.declare_parameter("write_thread", True)
         self.declare_parameter("port", "")
         self.declare_parameter("baud_rate", 0)
-        self.declare_parameter("hand_size", "large")
+        self.declare_parameter("hand_side", "Right")
         self.declare_parameter("js_publisher", False)
         self.declare_parameter("simulated_hand", False)
 
@@ -27,8 +27,8 @@ class AbilityHandNode(Node, Observer):
         self.write_thread = (
             self.get_parameter("write_thread").get_parameter_value().bool_value
         )
-        self.hand_size = (
-            self.get_parameter("hand_size")
+        self.hand_side = (
+            self.get_parameter("hand_side")
             .get_parameter_value()
             .string_value.lower()
         )
@@ -83,41 +83,80 @@ class AbilityHandNode(Node, Observer):
         ]
         self.joint_states = [0.0] * 10
 
-        # Feedback publishers
-        self.pub_velocity_fb = self.create_publisher(
-            Float32MultiArray, "/ability_hand/feedback/velocity", 10
-        )
-        self.pub_position_fb = self.create_publisher(
-            Float32MultiArray, "/ability_hand/feedback/position", 10
-        )
-        self.pub_current_fb = self.create_publisher(
-            Float32MultiArray, "/ability_hand/feedback/current", 10
-        )
-        self.pub_touch_fb = self.create_publisher(
-            Float32MultiArray, "/ability_hand/feedback/touch", 10
-        )
-        self.pub_hot_cold_fb = self.create_publisher(
-            UInt16, "/ability_hand/feedback/hot_cold", 10
-        )
+        if self.hand_side.lower() == "right":
 
-        if self.js_publisher:
-            self.js_pub = self.create_publisher(
-                JointState, "/joint_states_ah", 10
+            # Feedback publishers
+            self.pub_velocity_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/right/feedback/velocity", 10
+            )
+            self.pub_position_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/right/feedback/position", 10
+            )
+            self.pub_current_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/right/feedback/current", 10
+            )
+            self.pub_touch_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/right/feedback/touch", 10
+            )
+            self.pub_hot_cold_fb = self.create_publisher(
+                UInt16, "/ability_hand/right/feedback/hot_cold", 10
             )
 
-        # Target subscribers
-        self.sub_velocity_target = self.create_subscription(
-            Digits, "/ability_hand/target/velocity", self.velocity_callback, 10
-        )
-        self.sub_position_target = self.create_subscription(
-            Digits, "/ability_hand/target/position", self.position_callback, 10
-        )
-        self.sub_current_target = self.create_subscription(
-            Digits, "/ability_hand/target/current", self.current_callback, 10
-        )
-        self.sub_duty_target = self.create_subscription(
-            Digits, "/ability_hand/target/duty", self.duty_callback, 10
-        )
+            if self.js_publisher:
+                self.js_pub = self.create_publisher(
+                    JointState, "/joint_states_ah", 10
+                )
+
+            # Target subscribers
+            self.sub_velocity_target = self.create_subscription(
+                Digits, "/ability_hand/right/target/velocity", self.velocity_callback, 10
+            )
+            self.sub_position_target = self.create_subscription(
+                Digits, "/ability_hand/right/target/position", self.position_callback, 10
+            )
+            self.sub_current_target = self.create_subscription(
+                Digits, "/ability_hand/right/target/current", self.current_callback, 10
+            )
+            self.sub_duty_target = self.create_subscription(
+                Digits, "/ability_hand/right/target/duty", self.duty_callback, 10
+            )
+
+        elif hand_side.lower() == "left":
+            # Feedback publishers
+            self.pub_velocity_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/left/feedback/velocity", 10
+            )
+            self.pub_position_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/left/feedback/position", 10
+            )
+            self.pub_current_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/left/feedback/current", 10
+            )
+            self.pub_touch_fb = self.create_publisher(
+                Float32MultiArray, "/ability_hand/left/feedback/touch", 10
+            )
+            self.pub_hot_cold_fb = self.create_publisher(
+                UInt16, "/ability_hand/left/feedback/hot_cold", 10
+            )
+
+            if self.js_publisher:
+                self.js_pub = self.create_publisher(
+                    JointState, "/joint_states_ah", 10
+                )
+
+            # Target subscribers
+            self.sub_velocity_target = self.create_subscription(
+                Digits, "/ability_hand/left/target/velocity", self.velocity_callback, 10
+            )
+            self.sub_position_target = self.create_subscription(
+                Digits, "/ability_hand/left/target/position", self.position_callback, 10
+            )
+            self.sub_current_target = self.create_subscription(
+                Digits, "/ability_hand/left/target/current", self.current_callback, 10
+            )
+            self.sub_duty_target = self.create_subscription(
+                Digits, "/ability_hand/left/target/duty", self.duty_callback, 10
+            )
 
     def safe_publish(self, pub, msg):
         # Call publish outside of client class... I think... Not really... But seems better this way... This causes less errors in the log...
