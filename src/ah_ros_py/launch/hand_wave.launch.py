@@ -9,12 +9,6 @@ def generate_launch_description():
         [
             # AH NODE SETUP
             DeclareLaunchArgument(
-                "write_thread",
-                default_value="False",
-                description="Enable write thread",
-                choices=["True", "False"],
-            ),
-            DeclareLaunchArgument(
                 "port",
                 default_value="",
                 description="Serial Port",
@@ -54,7 +48,7 @@ def generate_launch_description():
                 name="ah_node",
                 output="screen",
                 parameters=[
-                    {"write_thread": True},
+                    {"write_thread": False},
                     {"hand_side": LaunchConfiguration("hand_side")},
                     {"port": LaunchConfiguration("port")},
                     {"baud_rate": LaunchConfiguration("baud_rate")},
