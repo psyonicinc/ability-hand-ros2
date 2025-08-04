@@ -1,15 +1,15 @@
 # Ability Hand ROS2
 
 ROS2 Humble implementation for integrating Ability Hand [Python Wrapper](https://github.com/psyonicinc/ability-hand-api/tree/master/python) 
-with ROS2
+with ROS2.  For ROS2 Jazzy, please use the [jazzy branch](https://github.com/psyonicinc/ability-hand-ros2/tree/jazzy)
 
 
-### Regular Setup
+## Regular Setup
 
 #### Install ROS2 Humble (Ubuntu 22.04)
 
-If using Ubuntu 22.04 you can follow the [install instructions](https://docs.ros.org/en/humble/Installation.html)
-.  If using Ubuntu 23.04 or higher or Windows, Docker is suggested.
+If using Ubuntu 22.04, you can follow the [install instructions](https://docs.ros.org/en/humble/Installation.html)
+.  If using Ubuntu 23.04 or higher or Windows, Docker is suggested.  
 
 It is recommended to use the included localhost only cyclonedds.xml config file.
 To install cyclone dds and use the included config file run
@@ -21,36 +21,26 @@ To install cyclone dds and use the included config file run
 Follow the instructions [here](https://github.com/psyonicinc/ability-hand-api/tree/master/python) 
 to install the Python Ability Hand Wrapper
 
+#### Built ROS2 Package
+
 From ability-hand-ros2 directory build using `colcon build` and source using `source ./install/setup.bash`
 
-### Docker Setup
+## Docker Setup
 
 Choose which nodes you wish to launch using Docker by modifying `entrypoint.sh`
 
-#### Windows
+### Linux
 
-- Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
-- Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- Install [XLaunch](https://sourceforge.net/projects/vcxsrv/)
-- Launch Docker Desktop
-- Launch XLaunch program select Multiple windows, Next, Start no client, Next, Un-Select Native opengl, Next, Finish
-- Open a power shell
-- Enter `$env:DISPLAY="host.docker.internal:0.0"`
-- Navigate to the docker directory of this repo and enter the following command
-
-`docker compose up`
-
-#### Linux
-
-Docker installation instructions for various linux distributions can be found
+Docker installation instructions for various Linux distributions can be found
 [here](https://docs.docker.com/engine/install/). Ensure you do the 
 [post installation instructions](https://docs.docker.com/engine/install/linux-postinstall/)
 
-Navigate to the docker directory of this repo and enter the following command
+Navigate to the Docker directory of this repo and enter the following command
 
 `xhost + && docker compose up`
 
-### Topics
+
+## Topics
 
 You can receive motor feedback on the following topics:
 
@@ -58,10 +48,10 @@ You can receive motor feedback on the following topics:
 `/ability_hand/feedback/position`  
 `/ability_hand/feedback/current`  
 
-Using the following indexes  
+Using the following indices  
 `[index, middle, ring, pinky, thumb flexor,  thumb rotator]`
 
-You can receive touch sensor feedback as well with 6 touch sensors per finger
+You can receive touch sensor feedback as well, with 6 touch sensors per finger
 via the topic:
 
 `/ability_hand/feedback/touch`  
@@ -77,9 +67,9 @@ using an *ah_messages/msg/Digits.msg* message, for example:
 
 `ros2 topic pub -r 200 /ability_hand/target/position ah_messages/msg/Digits "{reply_mode: 0, data: [0.0, 90.0, 90.0, 0.0, 0.0, 0.0]}"`
 
-### Examples
+## Examples
 
-To start the Ability Hand Node with a automatic write thread use:
+To start the Ability Hand Node with an automatic write thread, use:
 
 `colcon build && source ./install/setup.bash`  
 `ros2 launch ah_ros_py ah_node.launch.py write_thread:=True`
@@ -87,18 +77,18 @@ To start the Ability Hand Node with a automatic write thread use:
 You can change the hand's position using
 `ros2 topic pub --once /ability_hand/target/position ah_messages/msg/Digits "{reply_mode: 0, data: [0.0, 90.0, 90.0, 0.0, 0.0, 0.0]}"`
 
-Since the write thread is running you only have to publish the message once. In 
-most typical cases you will set write_thread:=False and have another ROS node 
-which will be publishing to the hand at least every 0.3 seconds / 5 hz. Ideally 
-you publish at least 200hz for smoother control.
+Since the write thread is running, you only have to publish the message once. In 
+most typical cases, you will set write_thread:=False and have another ROS node 
+publishing to the hand at least every 0.3 seconds / 5Hz. Ideally, you publish at 
+least 200Hz for smoother control.
 
-For example run the hand wave node without a write thread:
+For example, run the hand wave node without a write thread:
 
 `ros2 launch ah_ros_py hand_wave.launch.py`
 
-If you enable the `js_publisher` argument in the `ah_node.launch.py` launch file
-it will publish to `/joint_states_ah` which the joint state publisher in the
-`urdf_launch` package subscribes too and allows you to visualise the joint states
+If you enable the `js_publisher` argument in the `ah_node.launch.py` launch file,
+it will publish to `/joint_states_ah`, which the joint state publisher in the
+`urdf_launch` package subscribes to and allows you to visualise the joint states
 and URDF using:
 
 `ros2 launch ah_ros_py hand_wave.launch.py js_publisher:=True`  
