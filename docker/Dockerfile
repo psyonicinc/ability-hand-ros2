@@ -1,4 +1,4 @@
-ARG ROS_DISTRO=humble
+ARG ROS_DISTRO=jazzy
 FROM osrf/ros:${ROS_DISTRO}-desktop-full
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,14 +16,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip requirements
-RUN python3 -m pip install ability-hand 
+RUN pip install ability-hand --break-system-packages
 
 # Create workspace
 WORKDIR /src
 COPY ./src /src
 
 # Source ROS & build
-RUN . /opt/ros/humble/setup.sh && \
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build
 
 # Copy entrypoint
