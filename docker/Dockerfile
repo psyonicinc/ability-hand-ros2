@@ -16,14 +16,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pip requirements
-RUN python3 -m pip install ability-hand 
+RUN pip install ability-hand
 
 # Create workspace
 WORKDIR /src
 COPY ./src /src
 
 # Source ROS & build
-RUN . /opt/ros/humble/setup.sh && \
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build
 
 # Copy entrypoint

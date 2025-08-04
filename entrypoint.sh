@@ -2,7 +2,7 @@
 set -e
 
 # Source ROS and workspace
-source /opt/ros/humble/setup.bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
 source /src/install/setup.bash
 
 # Launch basic ROS2 node with write thread disabled
