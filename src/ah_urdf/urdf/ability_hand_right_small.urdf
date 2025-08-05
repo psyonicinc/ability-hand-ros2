@@ -519,6 +519,6 @@
    <joint name="fsr29" type="fixed">
       <parent link="thumb_L2" />
       <child link="fsr29" />
-      <origin rrpy="-1.39339 0.19354 -0.40280" xyz="0.05591 0.02160 0.00558" />
+      <origin rpy="-1.39339 0.19354 -0.40280" xyz="0.05591 0.02160 0.00558" />
    </joint>
 <joint name="base_link_to_base" type="fixed"><parent link="base_link" /><child link="base" /><origin xyz="0 0 0" /></joint></robot>
