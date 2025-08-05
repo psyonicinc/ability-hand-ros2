@@ -1,8 +1,7 @@
 # Ability Hand ROS2
 
 ROS2 Humble implementation for integrating Ability Hand [Python Wrapper](https://github.com/psyonicinc/ability-hand-api/tree/master/python) 
-
-with ROS2.  For ROS2 Jazzy, please use the [jazzy branch](https://github.com/psyonicinc/ability-hand-ros2/tree/jazzy)
+with ROS2.  For ROS2 Jazzy, please use the [jazzy branch](https://github.com/psyonicinc/ability-hand-ros2/tree/jazzy).
 
 <img src="ah_demo.gif" alt="Ability Hand" width="500"/>
 
