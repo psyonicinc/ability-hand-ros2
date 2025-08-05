@@ -1,7 +1,10 @@
 # Ability Hand ROS2
 
 ROS2 Humble implementation for integrating Ability Hand [Python Wrapper](https://github.com/psyonicinc/ability-hand-api/tree/master/python) 
+
 with ROS2.  For ROS2 Jazzy, please use the [jazzy branch](https://github.com/psyonicinc/ability-hand-ros2/tree/jazzy)
+
+<img src="ah_demo.gif" alt="Ability Hand" width="500"/>
 
 
 ## Regular Setup
@@ -86,10 +89,15 @@ For example, run the hand wave node without a write thread:
 
 `ros2 launch ah_ros_py hand_wave.launch.py`
 
-If you enable the `js_publisher` argument in the `ah_node.launch.py` launch file,
-it will publish to `/joint_states_ah`, which the joint state publisher in the
-`urdf_launch` package subscribes to and allows you to visualise the joint states
+If you enable the `js_publisher` argument in the `ah_node.launch.py` launch file
+it will publish to `/joint_states_ah` which the joint state publisher in the
+`urdf_launch` package subscribes to. This allows you to visualise the joint states
 and URDF using:
 
 `ros2 launch ah_ros_py hand_wave.launch.py js_publisher:=True`  
 `ros2 launch urdf_launch display.launch.py`
+
+If you would like to visualize the FSR touch sensors in RVIZ launch the FSR 
+marker node.
+
+`ros2 run ah_ros_py fsr_marker_node`

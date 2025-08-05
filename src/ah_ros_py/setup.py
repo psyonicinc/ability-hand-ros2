@@ -26,6 +26,7 @@ setup(
         "console_scripts": [
             "ah_node = ah_ros_py.ah_node:main",
             "hand_wave = ah_ros_py.hand_wave:main",
+            "fsr_marker_node = ah_ros_py.fsr_marker_node:main",
         ],
     },
     zip_safe=True,
