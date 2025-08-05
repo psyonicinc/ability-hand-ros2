@@ -19,6 +19,18 @@ Visualization Manager:
       Show Names: false
       Marker Scale: 0.05
       Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: MarkerArray
+      Namespaces:
+        touch: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /touch_markers
+      Value: true
   Global Options:
     Fixed Frame: world
   Tools:
