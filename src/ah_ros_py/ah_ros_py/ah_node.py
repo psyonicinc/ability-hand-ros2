@@ -201,7 +201,7 @@ class AbilityHandNode(Node, Observer):
 
     def update_fsr(self, fsr):
         msg = Float32MultiArray()
-        msg.data = fsr
+        msg.data = [float(i) for i in fsr]
         self.safe_publish(self.pub_touch_fb, msg)
 
     def update_hot_cold(self, hot_cold):
