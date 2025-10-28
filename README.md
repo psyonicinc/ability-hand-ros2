@@ -46,9 +46,9 @@ Navigate to the Docker directory of this repo and enter the following command
 
 You can receive motor feedback on the following topics:
 
-`/ability_hand/feedback/velocity`  
-`/ability_hand/feedback/position`  
-`/ability_hand/feedback/current`  
+`/ability_hand/right/feedback/velocity`  
+`/ability_hand/right/feedback/position`  
+`/ability_hand/right/feedback/current`  
 
 Using the following indices  
 `[index, middle, ring, pinky, thumb flexor,  thumb rotator]`
@@ -56,18 +56,18 @@ Using the following indices
 You can receive touch sensor feedback as well, with 6 touch sensors per finger
 via the topic:
 
-`/ability_hand/feedback/touch`  
+`/ability_hand/right/feedback/touch`  
 
 To control the hand publish on any of the following topics:
 
-`/ability_hand/target/velocity`  
-`/ability_hand/target/position`  
-`/ability_hand/target/current`  
-`/ability_hand/target/duty`
+`/ability_hand/right/target/velocity`  
+`/ability_hand/right/target/position`  
+`/ability_hand/right/target/current`  
+`/ability_hand/right/target/duty`
 
 using an *ah_messages/msg/Digits.msg* message, for example:
 
-`ros2 topic pub -r 200 /ability_hand/target/position ah_messages/msg/Digits "{reply_mode: 0, data: [0.0, 90.0, 90.0, 0.0, 0.0, 0.0]}"`
+`ros2 topic pub -r 200 /ability_hand/right/target/position ah_messages/msg/Digits "{reply_mode: 0, data: [0.0, 90.0, 90.0, 0.0, 0.0, 0.0]}"`
 
 ## Examples
 
@@ -77,7 +77,7 @@ To start the Ability Hand Node with an automatic write thread, use:
 `ros2 launch ah_ros_py ah_node.launch.py write_thread:=True`
 
 You can change the hand's position using
-`ros2 topic pub --once /ability_hand/target/position ah_messages/msg/Digits "{reply_mode: 0, data: [0.0, 90.0, 90.0, 0.0, 0.0, 0.0]}"`
+`ros2 topic pub --once /ability_hand/right/target/position ah_messages/msg/Digits "{reply_mode: 0, data: [0.0, 90.0, 90.0, 0.0, 0.0, 0.0]}"`
 
 Since the write thread is running, you only have to publish the message once. In 
 most typical cases, you will set write_thread:=False and have another ROS node 
