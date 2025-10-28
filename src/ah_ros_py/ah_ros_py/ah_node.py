@@ -121,7 +121,7 @@ class AbilityHandNode(Node, Observer):
                 Digits, "/ability_hand/right/target/duty", self.duty_callback, 10
             )
 
-        elif hand_side.lower() == "left":
+        elif self.hand_side.lower() == "left":
             # Feedback publishers
             self.pub_velocity_fb = self.create_publisher(
                 Float32MultiArray, "/ability_hand/left/feedback/velocity", 10
