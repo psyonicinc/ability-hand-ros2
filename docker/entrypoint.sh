@@ -18,6 +18,6 @@ ros2 launch ah_ros_py hand_wave.launch.py js_publisher:=True
 
 # Simulated hand wave with URDF / RViz
 #ros2 launch urdf_launch display.launch.py &
-#ros2 launch ah_ros_py hand_wave.launch.py js_publisher:=True simulated_hand:=False
+#ros2 launch ah_ros_py hand_wave.launch.py js_publisher:=True simulated_hand:=True
 
 exec "$@"

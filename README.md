@@ -3,7 +3,7 @@
 ROS2 Humble implementation for integrating Ability Hand [Python Wrapper](https://github.com/psyonicinc/ability-hand-api/tree/master/python) 
 with ROS2.  For ROS2 Jazzy, please use the [jazzy branch](https://github.com/psyonicinc/ability-hand-ros2/tree/jazzy).
 
-<img src="ah_demo.gif" alt="Ability Hand" width="500"/>
+<img src="images/ah_demo.gif" alt="Ability Hand" width="500"/>
 
 
 ## Regular Setup
@@ -16,7 +16,7 @@ If using Ubuntu 22.04, you can follow the [install instructions](https://docs.ro
 It is recommended to use the included localhost only cyclonedds.xml config file.
 To install cyclone dds and use the included config file run
 
-`./cyclone_dds_install.sh`
+`./scripts/cyclone_dds_install.sh`
 
 #### Install Ability Hand Python Wrapper
 
@@ -29,7 +29,7 @@ From ability-hand-ros2 directory build using `colcon build` and source using `so
 
 ## Docker Setup
 
-Choose which nodes you wish to launch using Docker by modifying `entrypoint.sh`
+Choose which nodes you wish to launch using Docker by modifying `docker/entrypoint.sh`
 
 ### Linux
 
