@@ -8,7 +8,7 @@ sudo apt update
 sudo apt install -y ros-humble-rmw-cyclonedds-cpp
 
 # Get the directory where the script is run from
-SCRIPT_DIR="$(pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 CYCLONE_PATH="file://$SCRIPT_DIR/cyclonedds.xml"
 
 # Append environment variables to .bashrc
