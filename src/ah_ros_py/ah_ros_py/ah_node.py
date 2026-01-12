@@ -109,16 +109,28 @@ class AbilityHandNode(Node, Observer):
 
             # Target subscribers
             self.sub_velocity_target = self.create_subscription(
-                Digits, "/ability_hand/right/target/velocity", self.velocity_callback, 10
+                Digits,
+                "/ability_hand/right/target/velocity",
+                self.velocity_callback,
+                10,
             )
             self.sub_position_target = self.create_subscription(
-                Digits, "/ability_hand/right/target/position", self.position_callback, 10
+                Digits,
+                "/ability_hand/right/target/position",
+                self.position_callback,
+                10,
             )
             self.sub_current_target = self.create_subscription(
-                Digits, "/ability_hand/right/target/current", self.current_callback, 10
+                Digits,
+                "/ability_hand/right/target/current",
+                self.current_callback,
+                10,
             )
             self.sub_duty_target = self.create_subscription(
-                Digits, "/ability_hand/right/target/duty", self.duty_callback, 10
+                Digits,
+                "/ability_hand/right/target/duty",
+                self.duty_callback,
+                10,
             )
 
         elif self.hand_side.lower() == "left":
@@ -146,16 +158,28 @@ class AbilityHandNode(Node, Observer):
 
             # Target subscribers
             self.sub_velocity_target = self.create_subscription(
-                Digits, "/ability_hand/left/target/velocity", self.velocity_callback, 10
+                Digits,
+                "/ability_hand/left/target/velocity",
+                self.velocity_callback,
+                10,
             )
             self.sub_position_target = self.create_subscription(
-                Digits, "/ability_hand/left/target/position", self.position_callback, 10
+                Digits,
+                "/ability_hand/left/target/position",
+                self.position_callback,
+                10,
             )
             self.sub_current_target = self.create_subscription(
-                Digits, "/ability_hand/left/target/current", self.current_callback, 10
+                Digits,
+                "/ability_hand/left/target/current",
+                self.current_callback,
+                10,
             )
             self.sub_duty_target = self.create_subscription(
-                Digits, "/ability_hand/left/target/duty", self.duty_callback, 10
+                Digits,
+                "/ability_hand/left/target/duty",
+                self.duty_callback,
+                10,
             )
 
     def safe_publish(self, pub, msg):

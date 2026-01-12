@@ -37,15 +37,21 @@ fsr_map = {
     29: "fsr27",
 }
 
+
 class MarkerNode(Node):
     def __init__(self):
         super().__init__("fsr_marker_node")
         self.touch_data = [0] * 30
 
-        self.marker_pub = self.create_publisher(MarkerArray, 'touch_markers', 10)
+        self.marker_pub = self.create_publisher(
+            MarkerArray, "touch_markers", 10
+        )
 
         self.fsr_sub = self.create_subscription(
-            Float32MultiArray, "/ability_hand/right/feedback/touch", self.fsr_callback, 10
+            Float32MultiArray,
+            "/ability_hand/right/feedback/touch",
+            self.fsr_callback,
+            10,
         )
 
     def fsr_callback(self, msg):
@@ -69,7 +75,7 @@ class MarkerNode(Node):
             arrow.id = i
             arrow.type = Marker.ARROW
             arrow.action = Marker.ADD
-            
+
             arrow.scale.x = 0.0025 + 0.01 * self.touch_data[i]  # shaft length
             arrow.scale.y = 0.0025  # shaft diameter
             arrow.scale.z = 0.0025  # head diameter
@@ -82,6 +88,7 @@ class MarkerNode(Node):
             marker_array.markers.append(arrow)
         self.marker_pub.publish(marker_array)
 
+
 def main(args=None):
     rclpy.init(args=args)
     node = MarkerNode()
@@ -89,6 +96,7 @@ def main(args=None):
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
+
 
 if __name__ == "__main__":
     main()
