@@ -80,7 +80,7 @@
       
       <dynamics damping="0.001" friction="0.001" />
       
-      <mimic joint="index_q1" multiplier="0.814" />
+      <mimic joint="index_q1" multiplier="1.05851325" />
    </joint>
    <link name="index_anchor" />
    <joint name="idx_anchor" type="fixed">
@@ -144,7 +144,7 @@
       
       <dynamics damping="0.001" friction="0.001" />
       
-      <mimic joint="middle_q1" multiplier="0.814" />
+      <mimic joint="middle_q1" multiplier="1.05851325" />
    </joint>
    <link name="middle_anchor" />
    <joint name="mid_anchor" type="fixed">
@@ -208,7 +208,7 @@
       
       <dynamics damping="0.001" friction="0.001" />
       
-      <mimic joint="ring_q1" multiplier="0.814" />
+      <mimic joint="ring_q1" multiplier="1.05851325" />
    </joint>
    <link name="ring_anchor" />
    <joint name="rng_anchor" type="fixed">
@@ -272,7 +272,7 @@
       <dynamics damping="0.001" friction="0.001" />
       
       <axis xyz="0 0 1" />
-      <mimic joint="pinky_q1" multiplier="0.814" />
+      <mimic joint="pinky_q1" multiplier="1.05851325" />
    </joint>
    <link name="pinky_anchor" />
    <joint name="pnky_anchor" type="fixed">
