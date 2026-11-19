@@ -174,9 +174,7 @@ class AbilityHandNode(Node, Observer):
         msg.name = self.joint_names
         for i in range(4):
             self.joint_states[i * 2] = radians(positions[i])
-            self.joint_states[i * 2 + 1] = (
-                self.joint_states[i * 2] * 1.05851325 + 0.72349796
-            )
+            self.joint_states[i * 2 + 1] = self.joint_states[i * 2] * 1.05851325
         self.joint_states[-1] = radians(positions[-2])
         self.joint_states[-2] = radians(positions[-1])
         msg.position = self.joint_states
